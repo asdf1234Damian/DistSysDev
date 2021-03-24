@@ -50,7 +50,7 @@ public class Token {
         salida = new DataOutputStream(conexion.getOutputStream());
         w.join();
 
-        for (; contador < 1000; contador++) {
+        for (; nodo == 0 && contador < 1000; contador++) {
             if (nodo == 0) {
                 if (primera_vez) {
                     primera_vez = false;
