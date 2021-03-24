@@ -1,15 +1,9 @@
-package Tarea4;
-
 import java.io.DataInput;
 import java.io.DataInputStream;
 import java.io.DataOutput;
 import java.io.DataOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-
-import javax.swing.plaf.basic.BasicLookAndFeel;
-
-import jdk.incubator.jpackage.internal.ConfigException;
 
 public class Token {
     static DataInputStream entrada;
@@ -20,9 +14,15 @@ public class Token {
 
     static class Worker extends Thread {
         public void run() {
-            ServerSocket servidor = new ServerSocket(50000);
-            Socket conexion = servidor.accept();
-            entrada = new DataInputStream(conexion.getInputStream());
+            try {
+                ServerSocket servidor = new ServerSocket(50000);
+                Socket conexion = servidor.accept();
+                entrada = new DataInputStream(conexion.getInputStream());
+            } catch (Exception e) {
+
+                System.err.println(e.getMessage());
+            }
+
         }
     }
 
@@ -40,7 +40,7 @@ public class Token {
         Socket conexion = null;
         while (true) {
             try {
-                conexion = Socket(ip, 50000);
+                conexion = new Socket(ip, 50000);
                 break;
             } catch (Exception e) {
                 Thread.sleep(500);
