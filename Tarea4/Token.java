@@ -8,6 +8,7 @@ import java.net.Socket;
 public class Token {
     static DataInputStream entrada;
     static DataOutputStream salida;
+    static ServerSocket servidor;
     static boolean primera_vez = true;
     static String ip;
     static int nodo, token, contador = 0;
@@ -15,15 +16,15 @@ public class Token {
     static class Worker extends Thread {
         public void run() {
             try {
-                ServerSocket servidor = new ServerSocket(50000);
+                servidor = new ServerSocket(50000);
                 Socket conexion = servidor.accept();
                 entrada = new DataInputStream(conexion.getInputStream());
             } catch (Exception e) {
-
                 System.err.println(e.getMessage());
             }
 
         }
+
     }
 
     public static void main(String[] args) throws Exception {
@@ -63,5 +64,6 @@ public class Token {
             System.out.println("Nodo: " + nodo + ", Contador: " + contador + ", Token: " + token);
             salida.writeInt(token);
         }
+        servidor.close();
     }
 }
