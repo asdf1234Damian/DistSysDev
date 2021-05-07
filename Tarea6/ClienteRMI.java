@@ -38,14 +38,10 @@ public class ClienteRMI {
 
   public static void main(String args[]) throws Exception {
 
-    String url_nodo0 = "rmi://13.65.195.227/prueba";
-    String url_nodo1 = "rmi://13.65.85.2/prueba";
-    String url_nodo2 = "rmi://13.84.150.75/prueba";
-    String url_nodo3 = "rmi://13.65.85.3/prueba";
+    String url_nodo0 = "rmi://52.150.21.160/prueba";
+    String url_nodo1 = "rmi://13.90.133.24/prueba";
     InterfaceRMI r0 = (InterfaceRMI) Naming.lookup(url_nodo0);
     InterfaceRMI r1 = (InterfaceRMI) Naming.lookup(url_nodo1);
-    InterfaceRMI r2 = (InterfaceRMI) Naming.lookup(url_nodo2);
-    InterfaceRMI r3 = (InterfaceRMI) Naming.lookup(url_nodo3);
 
     for (int i = 0; i < N; i++)
       for (int j = 0; j < N; j++) {
@@ -77,9 +73,9 @@ public class ClienteRMI {
 
     // Multiplicación
     int[][] C1 = r0.multiplica_matrices(A1, B1, N);
-    int[][] C2 = r1.multiplica_matrices(A1, B2, N);
-    int[][] C3 = r2.multiplica_matrices(A2, B1, N);
-    int[][] C4 = r3.multiplica_matrices(A2, B2, N);
+    int[][] C2 = r0.multiplica_matrices(A1, B2, N);
+    int[][] C3 = r1.multiplica_matrices(A2, B1, N);
+    int[][] C4 = r1.multiplica_matrices(A2, B2, N);
 
     // Acomoda matriz C
     acomoda_matriz(C, C1, 0, 0);
@@ -87,7 +83,7 @@ public class ClienteRMI {
     acomoda_matriz(C, C3, N / 2, 0);
     acomoda_matriz(C, C4, N / 2, N / 2);
 
-    if (N == 4) {
+    if (N == 8) {
       System.out.print("Matriz C\n");
       desplegar(C);
       System.out.println("Checksum =" + checksum(C));
